@@ -2,4 +2,4 @@
 A PoC Wrapper around Powerview to learn AD, Powershell and how Powerview is awesome
 
 
-![](kruthie73.gif)
+<img src="https://github.com/7RU7H/PowerShades/blob/main/kruthie73-gif" width="40" height="40" />
