@@ -210,13 +210,17 @@ $highPrivilegeGroups = @(
     "Administrators"
 )
 
+
+$permissionList = @("GenericAll", "GenericAll", "WriteOwner", "WriteDADL", "AllExtendedRights", "ForceChangePassword", "Self")
 $groups = Get-DomainGroup
 foreach ($group in $groups) {
         if ($excludedDefaultGroups -notcontains $group) {
         $customGroups += $group
-}
-
-
+	for ($permission in $permissionList) { 
+	$groupAcl = Get-ObjectAcl -Identity "$group" | ? {$_.ActiveDirectoryRights -eq "$permission"} | select SecurityIdentifier,ActiveDirectoryRights
+	Write-Host $groupAcl
+	$groupAcl | Out-File -Append -FilePath $outputFile 
+} 
 
 # Loop through the groups
 # Use Find-DomainObjectPropertyOutlier to analyze the property of the group member (deleted and active)
